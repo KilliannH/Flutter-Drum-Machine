@@ -1,3 +1,4 @@
+import 'package:drummachineapp/timerService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +34,7 @@ const Bits = [1, 2, 3, 4, 5, 6, 7, 8];
 class _LineStatefulWidgetState extends State<StatefulWidget> {
 
   var _bit = Bits[0];
+  TimerService timer = new TimerService();
 
   updateBit(value) {
     setState(() {
@@ -42,13 +44,17 @@ class _LineStatefulWidgetState extends State<StatefulWidget> {
 
   Widget build(BuildContext context) {
     return Row(
-      children: Bits.map((bit) {
+      children: [...Bits.map((bit) {
         return Radio(
           value: bit,
           groupValue: _bit,
           onChanged: (value) => updateBit(value),
         );
-      }).toList(),
+      }).toList(), RaisedButton(
+        onPressed: () => TimerService.startTimeout(),
+        child: Text('Start Timer', style: TextStyle(fontSize: 20)),
+      ),],
+
     );
   }
 }
